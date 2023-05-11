@@ -151,7 +151,9 @@ class Jiki {
     if (this.muteki && this.count & 1) return;
     drawSprite(2 + (this.anime >> 2), this.x, this.y);
     //（何番目の画像内か指定, X座標,Y座標）
-    if (this.muteki && this.count & 1) return;
-    drawSprite(9 + (this.anime >> 2), this.x, this.y + (24 << 8));
+
+    ///ジェット噴射（今回は使用しない）
+    //if (this.muteki && this.count & 1) return;
+    //drawSprite(9 + (this.anime >> 2), this.x, this.y + (24 << 8));
   }
 }

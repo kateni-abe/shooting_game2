@@ -13,10 +13,6 @@
 //キャンバス=スクリーンサイズの2倍
 //ので、実際に表示するためのスクリーンサイズにトリミングする = ④仮想画面
 
-//=========================================================================================
-//
-//=========================================================================================
-
 //================================================
 //デバッグのフラグ
 //================================================
@@ -39,8 +35,8 @@ const GAME_SPEED = 1000 / 60; //60fps(秒間60回/1000分の60)
 //スクリーンサイズ
 //================================================
 
-const SCREEN_W = 320; //横幅
-const SCREEN_H = 320; //縦幅
+const SCREEN_W = 600; //横幅
+const SCREEN_H = 300; //縦幅
 
 //================================================
 //キャンバスサイズ（描画範囲）
@@ -79,7 +75,7 @@ con.mozimageSoomthingEnabled = SMOOTHING;
 con.webkitimageSmoothingEnabled = SMOOTHING;
 con.msimageSmoothingEnabled = SMOOTHING;
 con.imageSmoothingEnabled = SMOOTHING;
-con.font = "30px 'Impact'";
+con.font = "30px impact";
 
 //================================================
 //仮想フィールド
@@ -90,7 +86,7 @@ let vcan = document.createElement("canvas");
 let vcon = vcan.getContext("2d");
 vcan.width = FIELD_W;
 vcan.height = FIELD_H;
-vcon.font = "15px 'Impact'";
+vcon.font = "15px impact";
 
 //================================================
 //カメラの座標
@@ -135,9 +131,10 @@ let jiki = new Jiki();
 //teki[0] = new Teki(75, 200 << 8, 200 << 8, 0, 0);
 
 //================================================
-//ファイルを読み込み
+//スプライトの読み込み
+//================================================
 let spriteImage = new Image();
-spriteImage.src = "sprite.png";
+spriteImage.src = "sprite2.png";
 //================================================
 //
 //
@@ -216,21 +213,20 @@ function drawAll() {
   //自機の範囲0 ~ FIELD_W
   //カメラの範囲0 ~ (FIELD_W-SCREEN_W)
 
-  camera_x = Math.floor((jiki.x >> 8) / FIELD_W * (FIELD_W - SCREEN_W));
-  camera_y = Math.floor((jiki.y >> 8) / FIELD_H * (FIELD_H - SCREEN_H));
+  camera_x = Math.floor(((jiki.x >> 8) / FIELD_W) * (FIELD_W - SCREEN_W));
+  camera_y = Math.floor(((jiki.y >> 8) / FIELD_H) * (FIELD_H - SCREEN_H));
 
   //-------------------------------
   //ボスのHPを表示
   //-------------------------------
 
   if (bossHP > 0) {
-    let sz = (SCREEN_W - 20) * bossHP / bossMHP;
-    let sz2 = (SCREEN_W - 20)
+    let sz = ((SCREEN_W - 20) * bossHP) / bossMHP;
+    let sz2 = SCREEN_W - 20;
     vcon.fillStyle = "rgba(255,0,0,0.5)";
     vcon.fillRect(camera_x + 10, camera_y + 10, sz, 10);
     vcon.strokeStyle = "rgba(255,0,0,0.9)";
     vcon.strokeRect(camera_x + 10, camera_y + 10, sz2, 10);
-
   }
 
   //-------------------------------
@@ -238,23 +234,19 @@ function drawAll() {
   //-------------------------------
 
   if (jiki.hp > 0) {
-    let sz = (SCREEN_W - 20) * jiki.hp / jiki.mhp;
-    let sz2 = (SCREEN_W - 20)
+    let sz = ((SCREEN_W - 20) * jiki.hp) / jiki.mhp;
+    let sz2 = SCREEN_W - 20;
     vcon.fillStyle = "rgba(0,0,255,0.5)";
-    vcon.fillRect(camera_x + 10, camera_y + SCREEN_H-18, sz, 10);
+    vcon.fillRect(camera_x + 10, camera_y + SCREEN_H - 18, sz, 10);
     vcon.strokeStyle = "rgba(0,0,255,0.9)";
-    vcon.strokeRect(camera_x + 10, camera_y + SCREEN_H-18, sz2, 10);
-
+    vcon.strokeRect(camera_x + 10, camera_y + SCREEN_H - 18, sz2, 10);
   }
 
   //-------------------------------
   //スコア表示
   //-------------------------------
-  //vcon.fillStyle = "white";
-  //vcon.fillText("SCORE"+score,camera_x+10,camera_y+40  )
-
-
-  
+  vcon.fillStyle = "white";
+  vcon.fillText("SCORE" + score, camera_x + 10, camera_y + 40);
 
   //-------------------------------
   //仮想画面から実際のキャンバスにコピー
@@ -300,30 +292,27 @@ function putInfo() {
   //デバッグ情報==「弾を撃った数」の表示
   //-------------------------------
   if (DEBUG) {
-    con.fillText("Tama:" + tama.length, 20, 40);
-    con.fillText("Teki:" + teki.length, 20, 70);
-    con.fillText("Tekidan:" + tekidan.length, 20, 100);
-    con.fillText("Expl:" + expl.length, 20, 130);
-    con.fillText("X:" + (jiki.x >> 8), 20, 160);
-    con.fillText("Y:" + (jiki.y >> 8), 20, 190);
-    con.fillText("HP:" + jiki.hp, 20, 220);
-    con.fillText("SCORE:" + score, 20, 250);
-    con.fillText("COUNT:" + gameCount, 20, 280);
-    con.fillText("WAVE:" + gameWave, 20, 310);
+    //con.fillText("Tama:" + tama.length, 20, 40);
+    //con.fillText("Teki:" + teki.length, 20, 70);
+    //con.fillText("Tekidan:" + tekidan.length, 20, 100);
+    //con.fillText("Expl:" + expl.length, 20, 130);
+    //con.fillText("X:" + (jiki.x >> 8), 20, 160);
+    //con.fillText("Y:" + (jiki.y >> 8), 20, 190);
+    //con.fillText("HP:" + jiki.hp, 20, 220);
+    //con.fillText("SCORE:" + score, 20, 250);
+    //con.fillText("COUNT:" + gameCount, 20, 280);
+    //con.fillText("WAVE:" + gameWave, 20, 310);
     //con.fillText
     //.filltext=塗りつぶし文字を描画させる
     //con.fillText("表記内容" + 参照元.(length=要素数を取得)= 表記内容 + 参照元の値を表示, x座標, y座標);
   }
 }
 
-
-let gameCount =0;
-let gameWave=0;
-let gameRound=0;
-let starSpeed=100;
-let starSpeedReq=100;
-
-
+let gameCount = 0;
+let gameWave = 0;
+let gameRound = 0;
+let starSpeed = 100;
+let starSpeedReq = 100;
 
 //
 //=========================================================================================
@@ -332,74 +321,55 @@ let starSpeedReq=100;
 
 function gameLoop() {
   gameCount++;
-  if(starSpeedReq>starSpeed)starSpeed++;
-  if(starSpeedReq<starSpeed)starSpeed--;
-if(gameWave==0)
-{
-  if (rand(0, 20) == 1)
-  //敵の出現量
-  //ランダムに敵を出す。(0,XX) → XXの数値を増減させると敵の出現量が変化。数を減らすと敵が増える。
-   {
-    teki.push(new Teki(0, rand(0, FIELD_W) << 8, 0, 0, rand(300, 1200)));
-  }
-  if(gameCount>60*20)
-  {
-    gameWave++;
-    gameCount=0;
-    starSpeedReq=200;
-  }
-
-}
-else if(gameWave==1)
-{
-  if (rand(0, 40) == 1)
-  //敵の出現量
-  //ランダムに敵を出す。(0,XX) → XXの数値を増減させると敵の出現量が変化。数を減らすと敵が増える。
-   {
-    teki.push(new Teki(1, rand(0, FIELD_W) << 8, 0, 0, rand(300, 1200)));
-  }
-  if(gameCount>60*20)
-  {
-    gameWave++;
-    gameCount=0;
-    starSpeedReq=100;
-  }
-}
-  else if(gameWave==2)
-  {
-    if (rand(0, 30) == 1)
-    //敵の出現量
-    //ランダムに敵を出す。(0,XX) → XXの数値を増減させると敵の出現量が変化。数を減らすと敵が増える。
-     {
-      let r = (0,1);
+  if (starSpeedReq > starSpeed) starSpeed++;
+  if (starSpeedReq < starSpeed) starSpeed--;
+  if (gameWave == 0) {
+    if (rand(0, 20) == 1) {
+      //敵の出現量
+      //ランダムに敵を出す。(0,XX) → XXの数値を増減させると敵の出現量が変化。数を減らすと敵が増える。
+      teki.push(new Teki(0, rand(0, FIELD_W) << 8, 0, 0, rand(300, 1200)));
+    }
+    if (gameCount > 60 * 20) {
+      gameWave++;
+      gameCount = 0;
+      starSpeedReq = 200;
+    }
+  } else if (gameWave == 1) {
+    if (rand(0, 40) == 1) {
+      //敵の出現量
+      //ランダムに敵を出す。(0,XX) → XXの数値を増減させると敵の出現量が変化。数を減らすと敵が増える。
+      teki.push(new Teki(1, rand(0, FIELD_W) << 8, 0, 0, rand(300, 1200)));
+    }
+    if (gameCount > 60 * 20) {
+      gameWave++;
+      gameCount = 0;
+      starSpeedReq = 100;
+    }
+  } else if (gameWave == 2) {
+    if (rand(0, 30) == 1) {
+      //敵の出現量
+      //ランダムに敵を出す。(0,XX) → XXの数値を増減させると敵の出現量が変化。数を減らすと敵が増える。
+      let r = (0, 1);
       teki.push(new Teki(r, rand(0, FIELD_W) << 8, 0, 0, rand(300, 1200)));
     }
-    if(gameCount>60*20)
-    {
+    if (gameCount > 60 * 20) {
       gameWave++;
-      gameCount=0;
-      teki.push(new Teki(2, (FIELD_W / 2) << 8, -(70<<8), 0, 200));
-      starSpeedReq=600;
+      gameCount = 0;
+      teki.push(new Teki(2, (FIELD_W / 2) << 8, -(70 << 8), 0, 200));
+      starSpeedReq = 600;
     }
-  }
-  else if(gameWave==3)
-  {
-    if(teki.length==0)
-    {
-      gameWave=0;
-      gameCount=0;
+  } else if (gameWave == 3) {
+    if (teki.length == 0) {
+      gameWave = 0;
+      gameCount = 0;
       gameRound++;
-      starSpeedReq=100;
+      starSpeedReq = 100;
     }
   }
   updateAll();
   drawAll();
   putInfo();
 }
-
-
-
-
 
 //
 //

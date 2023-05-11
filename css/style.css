@@ -1,0 +1,42 @@
+/*==================================
+共通設定
+==================================*/
+body {
+  background-image: url("/img/star.jpg");
+}
+
+footer p {
+  color: white;
+  font-family: "DotGothic16", sans-serif;
+  text-align: center;
+  font-size: 12pt;
+  letter-spacing: 5px;
+}
+
+p {
+  font-size: 16pt;
+  font-family: "DotGothic16", sans-serif;
+}
+
+/*==================================
+画面設定
+==================================*/
+#playwindow {
+  margin: auto;
+  margin-top: 30px;
+  text-align: center;
+  width: 100%;
+}
+
+#instructions {
+  margin: 0 auto;
+  width: 60%;
+}
+
+#instructions p {
+  margin-top: 30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 15px 0 15px 0;
+  text-align: center;
+}
